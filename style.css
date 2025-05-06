@@ -1,0 +1,137 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: #f5f7fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+.navbar {
+  background-color: #036;
+}
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.6rem;
+  color: #ecc03a !important;
+}
+.navbar-nav .nav-link {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+.navbar-nav .nav-link:hover {
+  color: #ecc03a !important;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.25rem;
+}
+#newsContainer {
+  margin-left: 0;
+  margin-right: 0;
+}
+.btn-primary:hover {
+  background-color: #0056b3;
+  transform: scale(1.03);
+  transition: all 0.2s ease-in-out;
+}
+.card {
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  background: #f9f9f9;
+  padding: 1rem 1.2rem;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 0.5rem;
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: #495057;
+  line-height: 1.4;
+}
+
+.card-footer {
+  background: #f1f1f1;
+  border-top: none;
+  padding: 0.75rem;
+}
+footer {
+  margin-top: 50px;
+  background-color: #036;
+  color: white;
+}
+footer span {
+  color: #ffc107;
+}
+
+
+.navbar-nav .nav-link.active {
+  border-bottom: 2px solid #ffc107;
+  background-color: transparent !important;
+  color: #ffc107 !important;
+  font-weight: 600;
+}
+
+.pagination .page-link {
+  border-radius: 50px;
+  padding: 0.4rem 0.9rem;
+  margin: 0 4px;
+  border: none;
+  color: #333;
+  background-color: #f8f9fa;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pagination .page-link:hover {
+  background-color: #ecc03a;  ;
+  color: #000;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #ecc03a;
+  color: #000;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pagination {
+  justify-content: center;
+  animation: fadeIn 0.5s ease-in;
+}
