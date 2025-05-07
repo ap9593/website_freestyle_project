@@ -91,12 +91,26 @@ footer span {
   color: #ffc107;
 }
 
+#searchBtn {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#searchBtn:hover {
+  background-color: #e0a800; /* deeper yellow */
+  transform: scale(1.05);
+}
 
 .navbar-nav .nav-link.active {
   border-bottom: 2px solid #ffc107;
   background-color: transparent !important;
   color: #ffc107 !important;
   font-weight: 600;
+}
+
+.custom-search {
+  min-width: 300px;
+  width: 400px;
+  max-width: 100%;
 }
 
 .pagination .page-link {
@@ -122,6 +136,93 @@ footer span {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode .card {
+  background-color: #0a0909 !important;
+  color: #e0e0e0;
+}
+
+body.dark-mode .navbar {
+  background-color: #1f1f1f !important;
+}
+
+body.dark-mode .btn-outline-primary {
+  border-color: #bbb;
+  color: #bbb;
+}
+
+body.dark-mode .card,
+body.dark-mode .card-body,
+body.dark-mode .card-footer {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+  border-color: #2c2c2c;
+}
+
+body.dark-mode .card-title,
+body.dark-mode .card-text,
+body.dark-mode .card-footer a {
+  color: #ffffff !important;
+}
+
+body.dark-mode .text-muted {
+  color: #bbbbbb !important;
+}
+
+.dark-mode .dark-card {
+  background-color: #1e1e1e !important;
+  color: white !important;
+  border: 1px solid #333;
+}
+
+.dark-mode .dark-card .card-text,
+.dark-mode .dark-card .card-title,
+.dark-mode .dark-card .text-muted {
+  color: #ccc !important;
+}
+
+#loadingSpinner {
+  z-index: 1050;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-item img {
+  object-fit: cover;
+  height: 400px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.6); /* darker overlay for better contrast */
+  border-radius: 10px;
+  padding: 1rem;
+  color: #fff; /* ensure text is white */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); /* add subtle text shadow */
+  max-width: 90%;
+  margin: auto;
+}
+
+.carousel-caption h5,
+.carousel-caption p {
+  color: #ffffff;
+}
+
+.carousel-caption a.btn {
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: transparent;
+}
+
+.carousel-caption a.btn:hover {
+  background-color: #fff;
+  color: #000;
+}
+
 .fade-in {
   animation: fadeIn 0.5s ease-in-out;
 }
@@ -134,4 +235,24 @@ footer span {
 .pagination {
   justify-content: center;
   animation: fadeIn 0.5s ease-in;
+}
+
+#sortWrapper select.form-select {
+  border: 1px solid #000 !important; /* force border with !important */
+  background-color: #f8f9fa;
+  transition: all 0.3s ease;
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  width: 130px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+#sortWrapper select.form-select:hover,
+#sortWrapper select.form-select:focus {
+  border-color: #ffc107 !important; /* yellow border on hover/focus */
+  background-color: #fff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.25);
 }

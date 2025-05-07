@@ -50,11 +50,41 @@ document.addEventListener("DOMContentLoaded", () => {
       currentCategory = link.getAttribute("data-category");
       currentQuery = "";
       currentPage = 1;
+      // Hide sort bar when switching categories
+      document.getElementById("sortWrapper").classList.add("d-none");
+      // to clear the search box
+      queryInput.value = "";
+      // Update active class
       categoryLinks.forEach(l => l.classList.remove("active"));
       link.classList.add("active");
+      fetchWithSpinner(fetchNews);
     });
   });
 
+  searchBtn.addEventListener("click", () => {
+    currentQuery = queryInput.value.trim();
+    currentCategory = "";
+    currentPage = 1;
+    // Hide all active highlights
+    categoryLinks.forEach(link => link.classList.remove("active"));
+    fetchWithSpinner(fetchNews);
+  });
+
+  queryInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // prevent form submission if inside a form
+      searchBtn.click();  // trigger the search
+    }
+  });
+
+
+  document.addEventListener("change", (e) => {
+    if (e.target && e.target.id === "sortBy") {
+      currentSortBy = e.target.value;
+      currentPage = 1;
+      fetchWithSpinner(fetchNews);
+    }
+  });
 
   const prevBtn = document.getElementById("prevPage");
   if (prevBtn) {
@@ -97,6 +127,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       totalResults = data.totalResults;
+      if (currentQuery && data?.articles.length) {
+        const sortWrapper = document.getElementById("sortWrapper");
+        if (sortWrapper) {
+          sortWrapper.classList.remove("d-none");
+        }
+      }
       displayArticles(data.articles);
       togglePagination();
     } catch (err) {
@@ -105,8 +141,49 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function updateFeaturedCarousel(articles) {
+    const featuredContainer = document.getElementById("featuredContainer");
+    featuredContainer.innerHTML = "";
+    articles.slice(0, 5).forEach((article, index) => {
+      const isActive = index === 0 ? "active" : "";
+      const item = document.createElement("div");
+      item.className = `carousel-item ${isActive}`;
+      item.innerHTML = `
+        <img src="${article.urlToImage || 'https://dummyimage.com/800x400/cccccc/000000&text=No+Image'}" class="d-block w-100" alt="${article.title}">
+        <div class="carousel-caption d-md-block bg-dark bg-opacity-50 rounded p-2">
+          <h5>${article.title}</h5>
+          <p>${article.description || ''}</p>
+          <a href="${article.url}" target="_blank" class="btn btn-outline-light btn-sm mt-2 shadow-sm rounded-pill px-4">Read More</a>
+        </div>
+      `;
+      featuredContainer.appendChild(item);
+    });
+  }
   function displayArticles(articles) {
     newsContainer.innerHTML = "";
+    const carousel = document.getElementById("homeLayout");
+
+    if (currentCategory === "general" && !currentQuery) {
+      carousel.classList.remove("d-none"); // show carousel on home
+      updateFeaturedCarousel(articles);    // update it
+    } else {
+      carousel.classList.add("d-none");    // hide it on other views
+    }
+    if (featuredContainer) featuredContainer.innerHTML = "";
+
+    if (!articles.length) {
+      newsContainer.innerHTML = "<p class='text-center'>No articles available.</p>";
+      return;
+    }
+
+    newsContainer.classList.remove("fade-in"); // reset in case it exists
+    void newsContainer.offsetWidth; // force reflow
+    newsContainer.classList.add("fade-in"); // trigger animation
+
+    if (currentCategory === "general" && featuredContainer) {
+      updateFeaturedCarousel(articles); // ADD THIS LINE
+      articles = articles.slice(5); // Skip the first 5 for main listing
+    }
 
     articles.forEach(article => {
       const col = document.createElement("div");
@@ -178,3 +255,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 });
+
+const spinner = document.getElementById("loadingSpinner");
+
+async function fetchWithSpinner(fetchFn) {
+  spinner.classList.remove("d-none");
+  try {
+    await fetchFn();
+  } finally {
+    spinner.classList.add("d-none");
+  }
+}
