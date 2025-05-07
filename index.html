@@ -38,6 +38,11 @@
             <input class="form-control" type="text" id="queryInput" placeholder="Search news">
             <button class="btn btn-warning" type="button" id="searchBtn"><i class="bi bi-search"></i></button>
           </div>
+
+          <!-- Dark mode toggle -->
+          <button id="darkModeToggle" class="btn btn-outline-light" title="Toggle dark mode">
+            <i class="bi bi-moon-fill"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -52,10 +57,20 @@
     </div>
     <div class="container mt-4">
       <div class="row">
+        <!-- Sidebar: Sort Options -->
+        <div class="col-md-3 mb-4 d-none" id="sortWrapper">
+          <label for="sortBy" class="form-label fw-semibold mb-2">
+            <i class="bi bi-filter me-1"></i> Sort By
+          </label>
+          <select class="form-select shadow-sm rounded-pill px-3 py-2 border-0" id="sortBy">
+            <option value="publishedAt">Newest</option>
+            <option value="relevancy" selected>Relevance</option>
+            <option value="popularity">Popularity</option>
+          </select>
+        </div>
 
         <!-- News and Featured Area -->
         <div class="col-md-12">
-
           <!-- Articles -->
           <div class="row" id="newsContainer"></div>
 
