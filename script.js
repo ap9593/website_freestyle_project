@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   let currentPage = 1;
-  const pageSize = 11;
+  const pageSize = 12;
   let totalResults = 0;
   let currentCategory = "general";
   let currentQuery = "";
@@ -108,24 +108,29 @@ document.addEventListener("DOMContentLoaded", () => {
       newsContainer.innerHTML = "<p class='text-center text-danger'>Please enter your NewsAPI key.</p>";
       return;
     }
-
-    let url = "";
-    if (currentQuery) {
-      url = `https://newsapi.org/v2/everything?q=${currentQuery}&language=en&sortBy=${currentSortBy}&pageSize=${pageSize}&page=${currentPage}&apiKey=${apiKey}`;
-    } else if (currentCategory === "general") {
-      url = `https://newsapi.org/v2/top-headlines?sources=cnn,abc-news,bbc-news&pageSize=${pageSize}&page=${currentPage}&apiKey=${apiKey}`;
-    } else {
-      url = `https://newsapi.org/v2/top-headlines?category=${currentCategory}&pageSize=${pageSize}&page=${currentPage}&apiKey=${apiKey}`;
-    }
-
-    try {
-      const response = await fetch(url);
+    try {//Used a simple server to overcome api CORS limitation using chatgpt
+      const response = await fetch("https://backend-host-seven.vercel.app/api/news", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          apiKey,
+          query: currentQuery,
+          category: currentCategory || "general",
+          pageSize,
+          page: currentPage,
+          sortBy: currentSortBy
+        })
+      });
+  
       const data = await response.json();
+  
       if (data.status !== "ok" || !data.articles) {
         newsContainer.innerHTML = "<p class='text-center text-danger'>No articles found.</p>";
         return;
       }
-
+    
       totalResults = data.totalResults;
       if (currentQuery && data?.articles.length) {
         const sortWrapper = document.getElementById("sortWrapper");
