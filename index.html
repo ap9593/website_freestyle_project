@@ -44,8 +44,15 @@
   </nav>
 
   <main class="flex-grow-1 position-relative">
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="position-absolute top-50 start-50 translate-middle d-none">
+      <div class="spinner-border text-warning" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
     <div class="container mt-4">
       <div class="row">
+
         <!-- News and Featured Area -->
         <div class="col-md-12">
 
@@ -68,6 +75,25 @@
       <p class="mb-0">&copy; 2025 GlobeScope. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- API Key Modal -->
+  <div class="modal fade" id="apiKeyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header">
+          <h5 class="modal-title">Enter Your NewsAPI Key</h5>
+        </div>
+        <div class="modal-body bg-light">
+          <input type="text" id="apiKeyInputModal" class="form-control mb-2" placeholder="Paste your NewsAPI key here">
+          <small class="text-muted">Get your key from <a href="https://newsapi.org/"
+              target="_blank">newsapi.org</a></small>
+        </div>
+        <div class="modal-footer bg-light">
+          <button type="button" id="saveApiKeyBtn" class="btn btn-warning w-100">Start Exploring</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
